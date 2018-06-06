@@ -37,7 +37,7 @@ yarn test
 ```
 You should be able to see a fully passing coverage report, like this:
 
-![screenshot showing my test suite passing](./public/passing.png)
+![screenshot showing my test suite passing](./public/passing.png =500x)
 
 ## The cherry on the cake
 
