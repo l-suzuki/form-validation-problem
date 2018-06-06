@@ -69,7 +69,7 @@ class Form extends React.Component {
       : ''
   }
 
-
+// displays error messages when incorrect data is entered.
   displayErrorMessage = (error) => {
     switch(error) {
       case 'email': return 'Please enter a valid email address.'
@@ -178,5 +178,4 @@ class Form extends React.Component {
 
 }
 
-// className={this.state.email.length > 0 ? this.state.emailValid != true && 'error': ''}
 export default Form

@@ -1,41 +1,49 @@
-# [Form validation problem](https://springload.github.io/form-validation-problem/)
+# Form Validation Problem from Springload
 
-We've created this problem to evaluate how developers tackle a real-world problem. If you've been assigned this problem you should spend around **2 hours** working on it. The last thing we want you to do is toil away for days on end!
+Hello! This is my solution to Springload's technical test. I have completed this using
 
-If you've stumbled across this and want to work at [Springload](https://www.springload.co.nz/) feel free to submit it too. We're always on the lookout for skilled developers.
+---
 
-## Problem definition
+## See my solution locally
 
-Included in this repository is an [index.html](index.html) file that contains a form. You must ensure all of the following rules are met before the form is posted to the (in this case imaginary) server:
-
-* `Email` must be a valid email address.
-* `Password` must be longer than 8 characters.
-* `Colour` must be selected.
-* At least two `Animal`s must be chosen.
-* If `Tiger` is one of the chosen `Animal`s then `Type of tiger` is required to be a non-empty string.
-
-## Other requirements
-
-If the form is submitted and an error occurs, the error element's parent should have a CSS `error` class added to it.
-
-```html
-<p class="error">
-    <label for="field"></label>
-    <input id="field" type="text" value="foo">
-</p>
+Step 1:
 ```
+git clone https://github.com/l-suzuki/form-validation-problem
+cd form-validation-problem
+```
+Step 2:
+```
+npm install
+- or -
+yarn install
+```
+(You can also use npm if you prefer.)
+Step 3:
+```
+npm start
+- or -
+yarn start
+```
+Step 4:
+Open your browser and navigate to http://localhost:8081 .
+You should be able to view the App.
 
 ## The cherry on the cake
 
-Beyond the problem statement, show us the consideration you have given to some or all of the following:
+I have taken Documentation, Accessibility, Progressive enhancement, Browser support, Testing and Tooling into consideration as much as I was able, given the time-frame.
 
-- Documentation
-- Accessibility
-- Progressive enhancement
-- Browser support
-- Testing
-- Tooling
+* I paid particular attention to writing test suites that would yield 100% coverage on my App. I achieved this using Jest and Enzyme.
+* I have used git and Github to create appropriately named working branches as I went through the process.
+* Commit messages are meaningful.
+* I have created issues on github to alert others to potential bugs in the App that require attention.
+* Ensured that obsolete or merged branches were deleted.
+* Code has been commented where necessary for ease of understanding.
+* I have provided instructions on how to setup and view the app in the ReadMe.
+* I had a look through Springload's front end checklist to see what accessibility requirements were considered standard, and tried to implement these where possible.
+* I have taken steps to make this App mobile friendly through the use of media queries and responsive css
 
-## Submission
+## Reflections
 
-Please email us a link to your fork of this repository, or a zip of your solution to `1337h4x0r@springload.co.nz`.
+I wanted to keep this exercise to a reasonable time frame, however, to get my App up to the standard you see here I had to go beyond the recommended 2 hour time frame. This is partly due to the fact that I took on the challenge of migrating the vanilla HTML site to ReactJS, and the effort I put into writing tests. I was also having fun solving the problem and playing around with different styling options!
+
+If I had more time, I would dedicate it to fulfilling more of Springload's accessibility criteria, as this is an area I'm interested in developing more skill in. 

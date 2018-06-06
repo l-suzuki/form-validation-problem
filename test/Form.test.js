@@ -81,23 +81,23 @@ test('handleAnimalChoice filters out unchecked animals', () => {
     animals: ['bear']
   }
 
-    const testEvent = {
-      target: {
-        name: 'animals',
-        value: 'bear'
-      }
+  const testEvent = {
+    target: {
+      name: 'animals',
+      value: 'bear'
     }
-    const expected = {
-      animals: []
-    }
+  }
+  const expected = {
+    animals: []
+  }
 
-    const wrapper = shallow(<Form />)
-    wrapper.instance().render = () => <div></div>
-    wrapper.instance().state = initialState
-    wrapper.instance().handleAnimalChoice(testEvent)
+  const wrapper = shallow(<Form />)
+  wrapper.instance().render = () => <div></div>
+  wrapper.instance().state = initialState
+  wrapper.instance().handleAnimalChoice(testEvent)
 
-    const actual = wrapper.instance().state
-    expect(actual).toEqual(expected)
+  const actual = wrapper.instance().state
+  expect(actual).toEqual(expected)
 })
 
 // onSubmit validation
