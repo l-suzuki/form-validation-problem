@@ -1,6 +1,6 @@
 # Form Validation Problem from Springload
 
-Hello! This is my solution to Springload's technical test. I have completed this using
+Hello! This is my solution to Springload's technical test.
 
 ---
 
@@ -17,7 +17,6 @@ npm install
 - or -
 yarn install
 ```
-(You can also use npm if you prefer.)
 Step 3:
 ```
 npm start
@@ -27,6 +26,15 @@ yarn start
 Step 4:
 Open your browser and navigate to http://localhost:8081 .
 You should be able to view the App.
+
+### Tests!
+
+If you would like to see my test suite in action, run the following command in terminal:
+```
+npm test
+- or -
+yarn test
+```
 
 ## The cherry on the cake
 
@@ -46,4 +54,4 @@ I have taken Documentation, Accessibility, Progressive enhancement, Browser supp
 
 I wanted to keep this exercise to a reasonable time frame, however, to get my App up to the standard you see here I had to go beyond the recommended 2 hour time frame. This is partly due to the fact that I took on the challenge of migrating the vanilla HTML site to ReactJS, and the effort I put into writing tests. I was also having fun solving the problem and playing around with different styling options!
 
-If I had more time, I would dedicate it to fulfilling more of Springload's accessibility criteria, as this is an area I'm interested in developing more skill in. 
+If I had more time, I would dedicate it to fulfilling more of Springload's accessibility criteria, as this is an area I'm interested in developing more skill in.
