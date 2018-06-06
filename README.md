@@ -35,6 +35,9 @@ npm test
 - or -
 yarn test
 ```
+You should be able to see a fully passing coverage report, like this:
+
+![screenshot showing my test suite passing](/passing.png)
 
 ## The cherry on the cake
 
