@@ -39,7 +39,8 @@ test('handleUserInput adds to state', () => {
     }
   }
   const expected = {
-    email: testEvent.target.value
+    email: testEvent.target.value,
+    errors: []
   }
 
   const wrapper = shallow(<Form />)
@@ -150,6 +151,19 @@ test('validate recognises valid inputs in state with Tiger', () => {
 
   const actual = wrapper.instance().state
   expect(actual).toEqual(expected)
+})
+
+test('shows success message when valid is true', () => {
+  const state = {
+    errors: [],
+    valid: true
+  }
+  const expected = 'Congratulations, you have submitted a valid form!'
+  const wrapper = shallow(<Form />)
+  wrapper.instance().state = state
+
+  const actual = shallow(wrapper.instance().render())
+  expect(actual.find('#success').text()).toBe(expected)
 })
 
 test('validate recognises invalid email input', () => {
