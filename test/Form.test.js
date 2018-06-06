@@ -2,13 +2,13 @@ import './setup-dom'
 import Form from '../components/Form'
 
 import React from 'react'
-import Enzyme, { shallow, mount } from 'enzyme'
+import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-15'
 Enzyme.configure({ adapter: new Adapter() })
 
 // Test suite setup
 test('Test suite working', () => {
-  expect(true).toBe(true)
+  expect(true).toBeTruthy
 })
 
 // Initial State
@@ -30,7 +30,33 @@ test('initial state returns correctly', () => {
 // User Input
 test('handleUserInput adds to state', () => {
   const initialState = {
-    email: ''
+    email: '',
+    errors: []
+  }
+  const testEvent = {
+    target: {
+      name: 'email',
+      value: 'test@test.com'
+    }
+  }
+  const expected = {
+    email: testEvent.target.value,
+    errors: []
+  }
+
+  const wrapper = shallow(<Form />)
+  wrapper.instance().render = () => <div></div>
+  wrapper.instance().state = initialState
+  wrapper.instance().handleUserInput(testEvent)
+
+  const actual = wrapper.instance().state
+  expect(actual).toEqual(expected)
+})
+
+test('handleUserInput removes appropriate error from state on change', () => {
+  const initialState = {
+    email: 'test@',
+    errors: ['email']
   }
   const testEvent = {
     target: {
@@ -54,7 +80,8 @@ test('handleUserInput adds to state', () => {
 
 test('handleAnimalChoice adds to empty state', () => {
   const initialState = {
-    animals: []
+    animals: [],
+    errors: []
   }
 
   const testEvent = {
@@ -64,7 +91,8 @@ test('handleAnimalChoice adds to empty state', () => {
     }
   }
   const expected = {
-    animals: [...initialState.animals, testEvent.target.value]
+    animals: [...initialState.animals, testEvent.target.value],
+    errors: []
   }
 
   const wrapper = shallow(<Form />)
@@ -78,7 +106,8 @@ test('handleAnimalChoice adds to empty state', () => {
 
 test('handleAnimalChoice filters out unchecked animals', () => {
   const initialState = {
-    animals: ['bear']
+    animals: ['bear'],
+    errors: []
   }
 
   const testEvent = {
@@ -88,7 +117,60 @@ test('handleAnimalChoice filters out unchecked animals', () => {
     }
   }
   const expected = {
-    animals: []
+    animals: [],
+    errors: []
+  }
+
+  const wrapper = shallow(<Form />)
+  wrapper.instance().render = () => <div></div>
+  wrapper.instance().state = initialState
+  wrapper.instance().handleAnimalChoice(testEvent)
+
+  const actual = wrapper.instance().state
+  expect(actual).toEqual(expected)
+})
+
+test('handleAnimalChoice removes animal error from state on change (with animal already in state)', () => {
+  const initialState = {
+    animals: ['bear'],
+    errors: ['animal']
+  }
+
+  const testEvent = {
+    target: {
+      name: 'animals',
+      value: 'bear'
+    }
+  }
+  const expected = {
+    animals: [],
+    errors: []
+  }
+
+  const wrapper = shallow(<Form />)
+  wrapper.instance().render = () => <div></div>
+  wrapper.instance().state = initialState
+  wrapper.instance().handleAnimalChoice(testEvent)
+
+  const actual = wrapper.instance().state
+  expect(actual).toEqual(expected)
+})
+
+test('handleAnimalChoice removes animal error from state on change (no matching animal in state)', () => {
+  const initialState = {
+    animals: ['snake'],
+    errors: ['animal']
+  }
+
+  const testEvent = {
+    target: {
+      name: 'animals',
+      value: 'bear'
+    }
+  }
+  const expected = {
+    animals: ['snake', 'bear'],
+    errors: []
   }
 
   const wrapper = shallow(<Form />)
@@ -297,67 +379,75 @@ test('validate recognises invalid tiger input', () => {
 })
 
 // Errors
-test('displayErrorMessage returns a default of undefined', () => {
-  const error = []
-  const expected = undefined
-  const wrapper = shallow(<Form />)
-  wrapper.instance().render = () => <div></div>
 
-  const actual = wrapper.instance().displayErrorMessage()
-  expect(actual).toEqual(expected)
-})
-
-test('displayErrorMessage outputs correct error types', () => {
-  const errors = [
-    'email',
-    'password',
-    'colour',
-    'animal',
-    'tiger'
-  ]
-
-  const wrapper = shallow(<Form />)
-  wrapper.instance().render = () => <div></div>
-  errors.forEach(error => {
-  const actual = wrapper.instance().displayErrorMessage(error)
-  expect(actual).toBeTruthy()
-  })
-})
-
-test('displayErrorMessage displays errors from state', () => {
+test('email error text appears according to state', () => {
   const state = {
     errors: [
       'email'
     ]
   }
-  const expected = 'Please enter a valid email address.'
+  const expected = '*Please enter a valid email address.'
   const wrapper = shallow(<Form />)
-  wrapper.instance().displayErrorMessage = () => expected
   wrapper.instance().state = state
 
   const actual = shallow(wrapper.instance().render())
-  expect(actual.find('#errorDisplay').text()).toBe(expected)
+  expect(actual.find('#emailError').text()).toBe(expected)
 })
 
-test('displayErrorMessage can display more than one error message', () => {
+test('password error text appears according to state', () => {
   const state = {
     errors: [
-      'email',
       'password'
     ]
   }
-  const emailErrorMessage = 'Please enter a valid email address.'
-  const passwordErrorMessage = 'Your password must have at least 8 characters.'
-  const expectedMessage = emailErrorMessage + passwordErrorMessage
-  const expectedLength = 2
-
+  const expected = '*Your password must contain at least 8 characters.'
   const wrapper = shallow(<Form />)
-  wrapper.instance().dispayErrorMessage = () => errorMessages
   wrapper.instance().state = state
 
   const actual = shallow(wrapper.instance().render())
-  expect(actual.find('#errorDisplay').text()).toBe(expectedMessage)
-  expect(actual.find('#errorDisplay').children().length).toBe(expectedLength)
+  expect(actual.find('#passwordError').text()).toBe(expected)
+})
+
+test('colour error text appears according to state', () => {
+  const state = {
+    errors: [
+      'colour'
+    ]
+  }
+  const expected = '*Please select a colour.'
+  const wrapper = shallow(<Form />)
+  wrapper.instance().state = state
+
+  const actual = shallow(wrapper.instance().render())
+  expect(actual.find('#colourError').text()).toBe(expected)
+})
+
+test('animal error text appears according to state', () => {
+  const state = {
+    errors: [
+      'animal'
+    ]
+  }
+  const expected = '*Please select at least 2 animals.'
+  const wrapper = shallow(<Form />)
+  wrapper.instance().state = state
+
+  const actual = shallow(wrapper.instance().render())
+  expect(actual.find('#animalError').text()).toBe(expected)
+})
+
+test('tiger error text appears according to state', () => {
+  const state = {
+    errors: [
+      'tiger'
+    ]
+  }
+  const expected = '*Please enter the type of tiger.'
+  const wrapper = shallow(<Form />)
+  wrapper.instance().state = state
+
+  const actual = shallow(wrapper.instance().render())
+  expect(actual.find('#tigerError').text()).toBe(expected)
 })
 
 test('addErrorClass returns "error" on true', () => {
