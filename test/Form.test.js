@@ -39,7 +39,8 @@ test('handleUserInput adds to state', () => {
     }
   }
   const expected = {
-    email: testEvent.target.value
+    email: testEvent.target.value,
+    errors: []
   }
 
   const wrapper = shallow(<Form />)
@@ -80,23 +81,23 @@ test('handleAnimalChoice filters out unchecked animals', () => {
     animals: ['bear']
   }
 
-    const testEvent = {
-      target: {
-        name: 'animals',
-        value: 'bear'
-      }
+  const testEvent = {
+    target: {
+      name: 'animals',
+      value: 'bear'
     }
-    const expected = {
-      animals: []
-    }
+  }
+  const expected = {
+    animals: []
+  }
 
-    const wrapper = shallow(<Form />)
-    wrapper.instance().render = () => <div></div>
-    wrapper.instance().state = initialState
-    wrapper.instance().handleAnimalChoice(testEvent)
+  const wrapper = shallow(<Form />)
+  wrapper.instance().render = () => <div></div>
+  wrapper.instance().state = initialState
+  wrapper.instance().handleAnimalChoice(testEvent)
 
-    const actual = wrapper.instance().state
-    expect(actual).toEqual(expected)
+  const actual = wrapper.instance().state
+  expect(actual).toEqual(expected)
 })
 
 // onSubmit validation
@@ -150,6 +151,19 @@ test('validate recognises valid inputs in state with Tiger', () => {
 
   const actual = wrapper.instance().state
   expect(actual).toEqual(expected)
+})
+
+test('shows success message when valid is true', () => {
+  const state = {
+    errors: [],
+    valid: true
+  }
+  const expected = 'Congratulations, you have submitted a valid form!'
+  const wrapper = shallow(<Form />)
+  wrapper.instance().state = state
+
+  const actual = shallow(wrapper.instance().render())
+  expect(actual.find('#success').text()).toBe(expected)
 })
 
 test('validate recognises invalid email input', () => {
