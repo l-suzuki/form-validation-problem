@@ -38,7 +38,6 @@ yarn test
 You should be able to see a fully passing coverage report, like this:
 
 <img src="./public/passing.png" alt="screenshot showing my test suite passing" width="500px"/>
-![screenshot showing my test suite passing](./public/passing.png =500x)
 
 ## The cherry on the cake
 
@@ -56,6 +55,6 @@ I have taken Documentation, Accessibility, Progressive enhancement, Browser supp
 
 ## Reflections
 
-I wanted to keep this exercise to a reasonable time frame, however, to get my App up to the standard you see here I had to go beyond the recommended 2 hour time frame. This is partly due to the fact that I took on the challenge of migrating the vanilla HTML site to ReactJS, and the effort I put into writing tests. I was also having fun solving the problem and playing around with different styling options!
+I really enjoyed solving this problem! I think I kept the exercise within a reasonable time frame, however, to get my App up to the standard you see here I did overstep the recommended 2 hour time frame. This is partly due to the fact that I took on the challenge of migrating the vanilla HTML site to ReactJS, and the effort I put into writing tests.
 
 If I had more time, I would dedicate it to fulfilling more of Springload's accessibility criteria, as I'd love to develop my skills in this area.
