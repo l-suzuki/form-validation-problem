@@ -51,6 +51,8 @@ class Form extends React.Component {
     e.preventDefault()
     const {email, errors, password, colour, animals, tiger_type, valid} = this.state
 
+    // the below regex caters to contemporary email standards: personal info up to 64 chars and domain names up to 253 characters.
+    // accepts formats such as my.email.address@email.website, or my.email@this.site.domain
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) errors.push('email')
 
     if (password.length < 8) errors.push('password')
